@@ -9,8 +9,8 @@ export default function Nav() {
   ]
 
   return (
-    <header className="w-full bg-[#0d0d0d] border-b border-white/10 px-6 py-4 sticky top-0 z-50 backdrop-blur-md">
-      <nav className="max-w-6xl mx-auto flex items-center justify-between">
+    <header className="w-full bg-[#0d0d0d] border-b border-white/10 px-4 sm:px-8 py-4 sticky top-0 z-50 backdrop-blur-md">
+      <nav className="w-full flex items-center justify-between">
         <NavLink
           to="/"
           className="text-xl sm:text-2xl font-serif italic tracking-wider text-white hover:text-gray-300 transition-colors"
