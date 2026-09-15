@@ -189,14 +189,14 @@ export default function Home() {
         </section>
 
         {/* ─── TEXT SECTION: Statement + description ─── */}
-        <section className="w-full max-w-[640px] mx-auto px-6 sm:px-8 pt-14 sm:pt-20 pb-4 text-center">
+        <section className="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 pt-14 sm:pt-20 pb-4 text-center">
           {/* Lobster quote */}
-          <h2 className="font-lobster font-normal text-3xl sm:text-4xl md:text-5xl text-[#3a2210] leading-tight">
+          <h2 className="font-lobster font-normal text-4xl sm:text-5xl md:text-6xl text-[#3a2210] leading-tight">
             Design isn't about screens, it's about helping someone choose what to do next
           </h2>
 
           {/* Inter medium description */}
-          <p className="font-inter font-medium text-sm sm:text-base text-[#5c534b] leading-relaxed mt-5 sm:mt-7">
+          <p className="font-inter font-medium text-lg sm:text-xl md:text-2xl text-[#5c534b] leading-relaxed mt-5 sm:mt-7">
             a UX designer driven by curiosity about people, their behavior, and the psychology behind the way we experience things
           </p>
         </section>
@@ -206,7 +206,7 @@ export default function Home() {
           <div className="flex flex-col items-center">
 
             {/* Hanging polaroid strip with project hotspots */}
-            <div className="hanging-element relative select-none" style={{ width: 'min(340px, 78vw)' }}>
+            <div className="hanging-element relative select-none" style={{ width: 'clamp(340px, 58vw, 760px)' }}>
 
               {/* The actual image — 682x1024, aspect-ratio maintained */}
               <img
@@ -246,7 +246,7 @@ export default function Home() {
                     <div className="bg-white/95 backdrop-blur-sm border border-[#ded3c5] rounded-2xl p-4 shadow-[0_12px_30px_rgba(40,20,10,0.14)]">
                       <span className="text-[10px] uppercase tracking-widest text-[#8c4a3e] font-inter font-semibold">{p.category}</span>
                       <h3 className="font-lobster font-normal text-xl text-[#3a2210] mt-1 leading-tight">{p.title}</h3>
-                      <p className="text-xs font-inter text-[#5c534b] leading-relaxed mt-2">{p.description}</p>
+                      <p className="text-sm sm:text-base font-inter text-[#5c534b] leading-relaxed mt-2">{p.description}</p>
                       <div className="mt-3 flex items-center gap-1 text-[11px] font-inter font-semibold text-[#8c4a3e]">
                         <span>View case study</span>
                         <span>→</span>
