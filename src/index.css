@@ -1,1 +1,76 @@
-@import "tailwindcss"; 
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-site: #EFE5DB;
+    --text-primary: #22201d;
+    --text-muted: #6e655c;
+    --card-bg: #faf6f0;
+    --card-border: #ded3c5;
+  }
+
+  html, body {
+    background-color: #EFE5DB;
+    color: #22201d;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Lobster', cursive;
+  }
+}
+
+.font-lobster {
+  font-family: 'Lobster', cursive !important;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Hanging Polaroid Dangle Keyframes */
+@keyframes dangle-swing {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(9deg);
+  }
+  30% {
+    transform: rotate(-7deg);
+  }
+  45% {
+    transform: rotate(5deg);
+  }
+  60% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(1.8deg);
+  }
+  90% {
+    transform: rotate(-0.8deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes gentle-idle-sway {
+  0%, 100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+.hanging-element {
+  transform-origin: 50% 0%;
+  animation: gentle-idle-sway 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hanging-element:hover {
+  animation: dangle-swing 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}

@@ -2,67 +2,93 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 
+// Polaroid strip hotspot definitions
+// Image: 682 x 1024px. Each polaroid occupies a vertical slice.
+// Hotspot x range: ~10% to 90% (the polaroid frame within the strip)
+// Vertical positions measured from the strip image
+const polaroidHotspots = [
+  {
+    id: 'postpartum',
+    title: 'Postpartum Care',
+    description: 'A mindful journaling & self-reflection app designed to help users develop healthy mental habits through guided prompts, mood tracking, and daily rituals.',
+    category: 'Product Design + UX Research',
+    // top, height as % of the strip image height
+    top: '1%',
+    height: '23%',
+  },
+  {
+    id: 'curanav',
+    title: 'CuraNav',
+    description: 'A comprehensive geriatric health management platform connecting elderly patients with caregivers, featuring medication tracking, appointment scheduling, and emergency SOS.',
+    category: 'Healthcare UX + Visual Design',
+    top: '27%',
+    height: '23%',
+  },
+  {
+    id: 'ar-vr',
+    title: 'AR Experience',
+    description: 'CamGuide — an augmented reality app for photography enthusiasts that provides real-time composition guides, camera settings suggestions, and scene analysis overlays.',
+    category: 'Interaction Design + AR/VR',
+    top: '52%',
+    height: '24%',
+  },
+  {
+    id: 'dementia',
+    title: 'Dementia Research',
+    description: 'Research-driven UX for a dedicated device designed to assist dementia patients with daily reminders, family communication, and cognitive exercises through an accessible interface.',
+    category: 'Assistive Tech + UX Research',
+    top: '77%',
+    height: '23%',
+  },
+]
+
 export default function Home() {
   const navigate = useNavigate()
   const [activeItem, setActiveItem] = useState(null)
   const [hoveredSticker, setHoveredSticker] = useState(null)
+  const [hoveredPolaroid, setHoveredPolaroid] = useState(null)
 
   const interactiveItems = [
     {
       id: 'about',
       title: 'About Me',
-      subtitle: 'Creative License #0026',
       route: '/about',
-      imgSrc: '/images/id-card.png',
-      alt: 'Arnavi Bhagat ID Card - Creative License (About Me)',
       style: {
-        left: '6.737%',
-        top: '8.801%',
-        width: '37.695%',
-        aspectRatio: '677 / 412',
+        left: '6.74%',
+        top: '8.72%',
+        width: '37.31%',
+        height: '33.28%',
       },
-      tagColor: 'bg-cyan-500/95 text-white border-cyan-400/40 shadow-[0_8px_20px_rgba(6,182,212,0.4)]',
-      glowColor: 'group-hover:shadow-[0_0_35px_rgba(6,182,212,0.5)]',
-      description: 'UX & Visual Designer bio, philosophy & background',
-      badge: 'About Me',
+      tagColor: 'bg-[#1e293b]/95 text-cyan-200 border-cyan-400/50',
+      hoverStyle: 'border-2 border-cyan-200/70 bg-cyan-400/10 shadow-[0_0_20px_rgba(6,182,212,0.35)]',
       icon: '🪪',
     },
     {
       id: 'projects',
       title: 'Projects',
-      subtitle: 'Featured Case Studies & UX Research',
       route: '/projects',
-      imgSrc: '/images/todo-list.png',
-      alt: 'To-Do List - CuraNav, Postpartum Care, Dementia Research (Projects)',
       style: {
-        left: '13.029%',
-        top: '54.484%',
-        width: '27.840%',
-        aspectRatio: '500 / 420',
+        left: '12.08%',
+        top: '53.56%',
+        width: '25.39%',
+        height: '34.37%',
       },
-      tagColor: 'bg-amber-400/95 text-black border-amber-300/60 shadow-[0_8px_20px_rgba(251,191,36,0.4)]',
-      glowColor: 'group-hover:shadow-[0_0_35px_rgba(251,191,36,0.5)]',
-      description: 'CuraNav, Postpartum Care & assistive UX projects',
-      badge: 'Projects',
+      tagColor: 'bg-[#1c1917]/95 text-amber-200 border-amber-300/50',
+      hoverStyle: 'border-2 border-amber-200/70 bg-amber-400/10 shadow-[0_0_20px_rgba(251,191,36,0.35)]',
       icon: '📝',
     },
     {
       id: 'work',
       title: 'Work Experience',
-      subtitle: 'Itemized Career Receipt',
       route: '/work',
-      imgSrc: '/images/work-experience.png',
-      alt: 'Work Experience Receipt - Tars Digital, Asmi.Mindcare (Experience)',
       style: {
-        left: '67.372%',
-        top: '17.100%',
-        width: '30.735%',
-        aspectRatio: '552 / 951',
+        left: '68.60%',
+        top: '21.04%',
+        width: '27.34%',
+        height: '70.16%',
       },
-      tagColor: 'bg-emerald-500/95 text-white border-emerald-400/40 shadow-[0_8px_20px_rgba(16,185,129,0.4)]',
-      glowColor: 'group-hover:shadow-[0_0_35px_rgba(16,185,129,0.5)]',
-      description: 'UI Design, Digital Marketing & Web Development internships',
-      badge: 'Work Experience',
+      tagColor: 'bg-[#064e3b]/95 text-emerald-200 border-emerald-400/50',
+      hoverStyle: 'border-2 border-emerald-200/70 bg-emerald-400/10 shadow-[0_0_20px_rgba(16,185,129,0.35)]',
       icon: '🧾',
     },
   ]
@@ -70,115 +96,65 @@ export default function Home() {
   const foregroundStickers = [
     {
       id: 'music-monk',
-      name: 'Music Monk',
       tagline: 'Deep focus & zen vibe 🎧',
-      imgSrc: '/images/music-monk-clean.png',
-      alt: 'Meditating person with headphones sticker',
-      style: {
-        left: '5.011%',
-        top: '33.194%',
-        width: '8.073%',
-        aspectRatio: '323 / 492',
-      },
-      rotation: '-rotate-2',
-      hoverRotation: 'hover:rotate-3',
+      style: { left: '3.8%', top: '33%', width: '8.5%', height: '16%' },
     },
     {
       id: 'figureoutable',
-      name: 'Figureoutable',
       tagline: 'Everything is figureoutable ✨',
-      imgSrc: '/images/figureoutable-clean.png',
-      alt: 'Everything is figureoutable red sticker',
-      style: {
-        left: '66.147%',
-        top: '86.169%',
-        width: '12.918%',
-        aspectRatio: '540 / 192',
-      },
-      rotation: 'rotate-1',
-      hoverRotation: 'hover:-rotate-2',
+      style: { left: '67%', top: '87%', width: '14%', height: '8%' },
     },
   ]
 
   return (
-    <div className="min-h-screen bg-[#0d0d10] text-white selection:bg-amber-500/30 selection:text-amber-200 flex flex-col justify-between overflow-x-hidden">
+    <div className="min-h-screen bg-[#EFE5DB] text-[#22201d] font-inter overflow-x-hidden flex flex-col">
       <Nav />
 
-      {/* Main Full-Width Pinboard Hero Section */}
-      <main className="w-full flex-1 flex flex-col p-0 m-0">
-        {/* Full-bleed edge-to-edge Pinboard Canvas Container */}
-        <section className="w-full relative select-none">
-          {/* Aspect Ratio Box matching the Pinboard (1796 / 1193 => 66.425%) */}
-          <div className="relative w-full pb-[66.425%] bg-[#caa07a]">
-            {/* High-Resolution Base Board Image spanning 100% width */}
+      <main className="flex-1 flex flex-col">
+
+        {/* ─── HERO: Full-width pinboard with beige frame ─── */}
+        <section className="w-full select-none relative">
+          {/* Aspect ratio wrapper: 1796 × 1193 → 66.4254% */}
+          <div className="relative w-full pb-[66.4254%]">
             <img
               src="/images/hero-board.png"
               alt="Arnavi Bhagat Pinboard Hero"
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              className="absolute inset-0 w-full h-full object-fill pointer-events-none"
               loading="eager"
             />
 
-            {/* Interactive Cutout Overlay Elements (ID Card, To-Do List, Work Experience) */}
+            {/* Clickable interactive hotspots */}
             {interactiveItems.map((item) => {
               const isHovered = activeItem === item.id
-
               return (
                 <div
                   key={item.id}
                   style={item.style}
-                  className={`absolute cursor-pointer transition-all duration-300 ${
-                    isHovered ? 'z-30' : 'z-20'
-                  }`}
+                  className={`absolute cursor-pointer rounded-xl transition-all duration-250 ${isHovered ? 'z-30' : 'z-20'}`}
                   onMouseEnter={() => setActiveItem(item.id)}
                   onMouseLeave={() => setActiveItem(null)}
                   onClick={() => navigate(item.route)}
                   role="button"
                   tabIndex={0}
-                  aria-label={`Navigate to ${item.title}`}
+                  aria-label={`Go to ${item.title}`}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault()
-                      navigate(item.route)
-                    }
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate(item.route) }
                   }}
                 >
-                  {/* Floating Cutout with 3D Hover Elevation */}
                   <div
-                    className={`relative w-full h-full transition-all duration-300 ease-out transform ${
+                    className={`w-full h-full rounded-xl transition-all duration-250 ${
                       isHovered
-                        ? 'scale-[1.035] -translate-y-2 drop-shadow-[0_25px_30px_rgba(0,0,0,0.7)]'
-                        : 'scale-100 drop-shadow-[0_4px_8px_rgba(0,0,0,0.2)] hover:scale-[1.015]'
+                        ? `${item.hoverStyle}`
+                        : 'border-2 border-transparent hover:border-white/20'
+                    }`}
+                  />
+                  {/* Tooltip */}
+                  <div
+                    className={`absolute left-1/2 -translate-x-1/2 top-2 pointer-events-none z-40 whitespace-nowrap transition-all duration-250 ${
+                      isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
                     }`}
                   >
-                    <img
-                      src={item.imgSrc}
-                      alt={item.alt}
-                      className="w-full h-full object-contain pointer-events-none"
-                    />
-
-                    {/* Gentle Hover Highlight */}
-                    <div
-                      className={`absolute inset-0 rounded-xl pointer-events-none transition-all duration-300 border ${
-                        isHovered
-                          ? 'opacity-100 bg-white/5 border-white/40 ring-2 ring-white/20'
-                          : 'opacity-0 border-transparent'
-                      }`}
-                    />
-                  </div>
-
-                  {/* Interactive Tooltip Badge on Hover */}
-                  <div
-                    className={`absolute left-1/2 -translate-x-1/2 pointer-events-none transition-all duration-300 z-40 whitespace-nowrap ${
-                      item.id === 'work' ? 'top-3 sm:top-6' : 'top-2 sm:top-4'
-                    } ${
-                      isHovered
-                        ? 'opacity-100 translate-y-0 scale-100'
-                        : 'opacity-0 translate-y-2 scale-90'
-                    }`}
-                  >
-                    <div
-                      className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-semibold border backdrop-blur-md transition-all ${item.tagColor}`}
-                    >
+                    <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-md ${item.tagColor}`}>
                       <span>{item.icon}</span>
                       <span>{item.title}</span>
                       <span className="text-[10px]">→</span>
@@ -188,100 +164,119 @@ export default function Home() {
               )
             })}
 
-            {/* Foreground Stickers Placed in FRONT of EVERYTHING ELSE (z-50) */}
-            {foregroundStickers.map((sticker) => {
-              const isHovered = hoveredSticker === sticker.id
-
-              return (
-                <div
-                  key={sticker.id}
-                  style={sticker.style}
-                  className="absolute z-50 cursor-pointer select-none group/sticker transition-transform duration-300"
-                  onMouseEnter={() => setHoveredSticker(sticker.id)}
-                  onMouseLeave={() => setHoveredSticker(null)}
-                >
-                  <div
-                    className={`relative w-full h-full transition-all duration-300 ease-out transform ${sticker.rotation} ${
-                      isHovered
-                        ? 'scale-110 -translate-y-1.5 drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)]'
-                        : 'scale-100 drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] hover:scale-105'
-                    }`}
-                  >
-                    <img
-                      src={sticker.imgSrc}
-                      alt={sticker.alt}
-                      className="w-full h-full object-contain pointer-events-none"
-                    />
-
-                    {/* Playful Floating Tagline on Sticker Hover */}
-                    <div
-                      className={`absolute -top-7 left-1/2 -translate-x-1/2 pointer-events-none transition-all duration-300 z-50 whitespace-nowrap ${
-                        isHovered
-                          ? 'opacity-100 translate-y-0 scale-100'
-                          : 'opacity-0 translate-y-1 scale-90'
-                      }`}
-                    >
-                      <div className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono bg-black/85 text-amber-200 border border-amber-400/40 shadow-lg backdrop-blur-md">
-                        {sticker.tagline}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </section>
-
-        {/* Quick-Access Navigation Cards below full-width hero */}
-        <section className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 border-b border-white/10 pb-4">
-            <div>
-              <span className="text-xs uppercase tracking-[0.2em] text-amber-400 font-mono">Interactive Navigation</span>
-              <h2 className="text-2xl font-serif text-white mt-1">Explore Portfolio Sections</h2>
-            </div>
-            <p className="text-xs text-zinc-400">Click any card on the board above or shortcuts below</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {interactiveItems.map((item) => (
-              <Link
-                key={item.id}
-                to={item.route}
-                onMouseEnter={() => setActiveItem(item.id)}
-                onMouseLeave={() => setActiveItem(null)}
-                className={`group flex items-center justify-between p-4 sm:p-5 rounded-2xl border transition-all duration-300 ${
-                  activeItem === item.id
-                    ? 'bg-[#18181c] border-white/30 shadow-lg -translate-y-0.5'
-                    : 'bg-[#121215] border-white/10 hover:border-white/20 hover:bg-[#161619]'
-                }`}
+            {/* Sticker hover areas */}
+            {foregroundStickers.map((s) => (
+              <div
+                key={s.id}
+                style={s.style}
+                className="absolute z-40 rounded-xl cursor-pointer"
+                onMouseEnter={() => setHoveredSticker(s.id)}
+                onMouseLeave={() => setHoveredSticker(null)}
               >
-                <div className="flex items-center gap-3.5">
-                  <span className="text-2xl p-2.5 rounded-xl bg-white/5 border border-white/5 group-hover:scale-110 transition-transform">
-                    {item.icon}
-                  </span>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-base font-medium text-white group-hover:text-amber-200 transition-colors">
-                        {item.title}
-                      </h3>
-                      <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-white/10 text-zinc-300">
-                        {item.badge}
-                      </span>
-                    </div>
-                    <p className="text-xs text-zinc-400 mt-1 line-clamp-1">{item.description}</p>
+                <div className={`w-full h-full rounded-xl transition-all duration-250 ${
+                  hoveredSticker === s.id ? 'border-2 border-white/60 bg-white/10' : 'border border-transparent'
+                }`} />
+                <div className={`absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap z-50 pointer-events-none transition-all duration-250 ${
+                  hoveredSticker === s.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
+                }`}>
+                  <div className="px-2.5 py-0.5 rounded-full text-[11px] font-inter font-medium bg-stone-900/90 text-amber-200 border border-amber-400/40 backdrop-blur-md shadow-lg">
+                    {s.tagline}
                   </div>
                 </div>
-                <span className="text-zinc-500 group-hover:text-white group-hover:translate-x-1 transition-all text-sm font-bold pl-2">
-                  →
-                </span>
-              </Link>
+              </div>
             ))}
           </div>
         </section>
+
+        {/* ─── TEXT SECTION: Statement + description ─── */}
+        <section className="w-full max-w-[640px] mx-auto px-6 sm:px-8 pt-14 sm:pt-20 pb-4 text-center">
+          {/* Lobster quote */}
+          <h2 className="font-lobster font-normal text-3xl sm:text-4xl md:text-5xl text-[#3a2210] leading-tight">
+            Design isn't about screens, it's about helping someone choose what to do next
+          </h2>
+
+          {/* Inter medium description */}
+          <p className="font-inter font-medium text-sm sm:text-base text-[#5c534b] leading-relaxed mt-5 sm:mt-7">
+            a UX designer driven by curiosity about people, their behavior, and the psychology behind the way we experience things
+          </p>
+        </section>
+
+        {/* ─── HANGING POLAROIDS: Project showcase using the exact uploaded strip image ─── */}
+        <section className="w-full flex flex-col items-center pb-20 sm:pb-28 pt-2">
+          <div className="flex flex-col items-center">
+
+            {/* Hanging polaroid strip with project hotspots */}
+            <div className="hanging-element relative select-none" style={{ width: 'min(340px, 78vw)' }}>
+
+              {/* The actual image — 682x1024, aspect-ratio maintained */}
+              <img
+                src="/images/polaroid-projects-strip.png"
+                  alt="Project Polaroids — Postpartum Care, CuraNav, AR Experience, Dementia Research"
+                draggable="false"
+                className="w-full h-auto object-contain pointer-events-none select-none"
+              />
+
+              {/* Invisible hover hotspots over each polaroid */}
+              {polaroidHotspots.map((p, index) => (
+                <div
+                  key={p.id}
+                  className="absolute left-[8%] w-[84%] cursor-pointer"
+                  style={{ top: p.top, height: p.height }}
+                  onMouseEnter={() => setHoveredPolaroid(p.id)}
+                  onMouseLeave={() => setHoveredPolaroid(null)}
+                  onClick={() => navigate('/projects')}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View project: ${p.title}`}
+                  onKeyDown={(e) => { if (e.key === 'Enter') navigate('/projects') }}
+                >
+                  {/* Hover overlay glow */}
+                  <div className="w-full h-full rounded-xl" />
+
+                  {/* Description popup — appears to the RIGHT of the polaroid strip */}
+                  <div
+                    className={`absolute top-1/2 -translate-y-1/2 w-56 sm:w-64 pointer-events-none z-50 transition-all duration-300 ${
+                      index % 2 === 0 ? 'left-[105%]' : 'right-[105%]'
+                    } ${
+                      hoveredPolaroid === p.id
+                        ? 'opacity-100 translate-x-0'
+                        : 'opacity-0 -translate-x-2'
+                    }`}
+                  >
+                    <div className="bg-white/95 backdrop-blur-sm border border-[#ded3c5] rounded-2xl p-4 shadow-[0_12px_30px_rgba(40,20,10,0.14)]">
+                      <span className="text-[10px] uppercase tracking-widest text-[#8c4a3e] font-inter font-semibold">{p.category}</span>
+                      <h3 className="font-lobster font-normal text-xl text-[#3a2210] mt-1 leading-tight">{p.title}</h3>
+                      <p className="text-xs font-inter text-[#5c534b] leading-relaxed mt-2">{p.description}</p>
+                      <div className="mt-3 flex items-center gap-1 text-[11px] font-inter font-semibold text-[#8c4a3e]">
+                        <span>View case study</span>
+                        <span>→</span>
+                      </div>
+                    </div>
+                    {/* Arrow pointing left back to polaroid */}
+                    <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-[#ded3c5] rotate-45 ${
+                      index % 2 === 0
+                        ? '-left-2 border-l border-b'
+                        : '-right-2 border-r border-t'
+                    }`} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Link
+            to="/projects"
+            className="mt-8 sm:mt-10 inline-flex items-center gap-2 text-sm font-inter font-semibold text-[#8c4a3e] hover:text-[#3a2210] transition-colors group"
+          >
+            <span>View all projects</span>
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </Link>
+        </section>
+
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t border-white/10 px-4 py-5 text-center text-xs text-zinc-500 font-mono">
+      <footer className="w-full border-t border-[#ded3c5] px-4 py-6 text-center text-xs text-[#736a61] font-inter bg-[#eae0d5]/40">
         Arnavi Bhagat • UX & Visual Designer Portfolio • Nagpur, India
       </footer>
     </div>
