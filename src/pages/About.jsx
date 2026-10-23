@@ -13,7 +13,7 @@ export default function About() {
   }, [])
 
   return (
-    <div className="page-enter min-h-screen bg-[#EFE5DB] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
+    <div className="page-enter min-h-screen bg-[#FFFAF6] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
       <Nav />
       <main className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 w-full flex-1">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#ded3c5] gap-4">
@@ -84,7 +84,7 @@ export default function About() {
                 ].map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#EFE5DB] border border-[#d8ccbe] text-[#3d3833]"
+                    className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#FFFAF6] border border-[#d8ccbe] text-[#3d3833]"
                   >
                     {skill}
                   </span>

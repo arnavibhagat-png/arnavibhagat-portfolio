@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-[#EFE5DB] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
+    <div className="min-h-screen bg-[#FFFAF6] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
       <Nav />
       <main className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-16 w-full flex-1">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#ded3c5] gap-4">
@@ -29,11 +29,11 @@ export default function Contact() {
             </p>
             <div className="space-y-3 pt-3">
               <div className="flex items-center gap-3 text-sm text-[#3d3833]">
-                <span className="p-2 rounded-lg bg-[#EFE5DB] border border-[#ded3c5]">📍</span>
+                <span className="p-2 rounded-lg bg-[#FFFAF6] border border-[#ded3c5]">📍</span>
                 <span>Nagpur, Maharashtra, India</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-[#3d3833]">
-                <span className="p-2 rounded-lg bg-[#EFE5DB] border border-[#ded3c5]">✉️</span>
+                <span className="p-2 rounded-lg bg-[#FFFAF6] border border-[#ded3c5]">✉️</span>
                 <span>arnavibhagat@gmail.com</span>
               </div>
             </div>

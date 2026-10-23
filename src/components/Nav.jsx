@@ -1,6 +1,8 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 export default function Nav() {
+  const location = useLocation()
+
   const navItems = [
     { name: 'About', path: '/about' },
     { name: 'Work', path: '/projects' },
@@ -8,43 +10,54 @@ export default function Nav() {
   ]
 
   return (
-    <header className="w-full bg-[#EFE5DB]/95 px-4 sm:px-8 py-2 sticky top-0 z-50 backdrop-blur-md transition-all">
-      <nav className="max-w-7xl mx-auto w-full flex items-center justify-between">
-        {/* Brand: Avatar + Bold Name */}
+    <header className="w-full relative z-[100]">
+      {/* Fixed navbar stays fixed in its spot at the top on top of everything */}
+      <div className="fixed top-3 sm:top-5 left-0 right-0 z-[100] w-full px-3 sm:px-6 flex justify-center pointer-events-none">
+        <nav className="navbar-glass pointer-events-auto w-full max-w-5xl rounded-full px-3 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between transition-all duration-300">
+        {/* Brand: Avatar + Bold Name in Bowlby One */}
         <NavLink
           to="/"
-          className="flex items-center gap-2 group no-underline text-inherit"
+          className="flex items-center gap-2.5 sm:gap-3 group no-underline text-white pl-0.5 sm:pl-1 select-none"
           aria-label="Arnavi - Home"
         >
           <img
             src="/images/nav-avatar.png"
             alt="Arnavi avatar"
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover transition-transform duration-200 group-hover:scale-110 shadow-xs"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover shrink-0 select-none transition-transform duration-200 group-hover:scale-105 shadow-sm"
           />
-          <span className="text-xl sm:text-2xl font-black tracking-tight text-[#111111] font-inter select-none">
+          <span className="font-bowlby text-xl sm:text-2xl text-white tracking-wide leading-none select-none">
             Arnavi
           </span>
         </NavLink>
 
-        {/* Navigation Links in Handwritten Font */}
-        <div className="flex items-center gap-6 sm:gap-9 font-patrick">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `text-lg sm:text-[20px] transition-all duration-150 no-underline pb-0.5 ${
+        {/* Navigation Links in Poppins */}
+        <div className="flex items-center gap-5 sm:gap-10 font-poppins pr-2 sm:pr-4">
+          {navItems.map((item) => {
+            const isWorkActive =
+              item.name === 'Work' &&
+              (location.pathname === '/projects' || location.pathname === '/work')
+            const isActive = location.pathname === item.path || isWorkActive
+
+            return (
+              <NavLink
+                key={item.name}
+                to={item.path}
+                className={`text-sm sm:text-base tracking-wide transition-all duration-200 no-underline select-none ${
                   isActive
-                    ? 'text-[#111111] font-bold border-b-2 border-[#111111]'
-                    : 'text-[#2a2622] hover:text-[#8c4a3e]'
-                }`
-              }
-            >
-              {item.name}
-            </NavLink>
-          ))}
+                    ? 'text-white font-semibold opacity-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]'
+                    : 'text-white/80 hover:text-white hover:opacity-100 font-normal'
+                }`}
+              >
+                {item.name}
+              </NavLink>
+            )
+          })}
         </div>
       </nav>
+      </div>
+      {/* Spacer to prevent content jump and maintain top spacing */}
+      <div className="h-16 sm:h-20 pointer-events-none" aria-hidden="true" />
     </header>
   )
 }
+

@@ -28,7 +28,7 @@ export default function Work() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#EFE5DB] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
+    <div className="min-h-screen bg-[#FFFAF6] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
       <Nav />
       <main className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 w-full flex-1">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#ded3c5] gap-4">
@@ -74,7 +74,7 @@ export default function Work() {
                     <p className="text-sm font-semibold text-[#2d6a4f] font-inter mt-0.5">{exp.role}</p>
                   </div>
                   <div className="text-left sm:text-right mt-2 sm:mt-0">
-                    <span className="text-xs font-inter uppercase font-medium px-2.5 py-1 rounded-full bg-[#EFE5DB] border border-[#ded3c5] text-[#3d3833]">
+                    <span className="text-xs font-inter uppercase font-medium px-2.5 py-1 rounded-full bg-[#FFFAF6] border border-[#ded3c5] text-[#3d3833]">
                       {exp.duration}
                     </span>
                     <p className="text-xs text-[#736a61] font-inter mt-1">{exp.period}</p>

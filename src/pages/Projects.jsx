@@ -34,7 +34,7 @@ export default function Projects() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#EFE5DB] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
+    <div className="min-h-screen bg-[#FFFAF6] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
       <Nav />
       <main className="max-w-6xl mx-auto px-4 sm:px-8 py-12 sm:py-16 w-full flex-1">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#ded3c5] gap-4">
@@ -60,7 +60,7 @@ export default function Projects() {
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="text-xs font-inter uppercase font-medium px-2.5 py-1 rounded-full bg-[#EFE5DB] border border-[#ded3c5] text-[#554e46]">
+                  <span className="text-xs font-inter uppercase font-medium px-2.5 py-1 rounded-full bg-[#FFFAF6] border border-[#ded3c5] text-[#554e46]">
                     {project.tag}
                   </span>
                   <span
