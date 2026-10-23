@@ -1,9 +1,19 @@
+import { useEffect, useState } from 'react'
 import Nav from '../components/Nav'
 import { Link } from 'react-router-dom'
 
 export default function About() {
+  const [diaryOpen, setDiaryOpen] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setDiaryOpen(window.scrollY > 80)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <div className="min-h-screen bg-[#EFE5DB] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
+    <div className="page-enter min-h-screen bg-[#EFE5DB] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
       <Nav />
       <main className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 w-full flex-1">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#ded3c5] gap-4">
@@ -20,17 +30,18 @@ export default function About() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start">
-          {/* Card visual preview */}
+          {/* Diary visual: scroll to turn from the cover to the inside page */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="relative group rounded-2xl overflow-hidden shadow-[0_15px_35px_rgba(40,20,10,0.12)] border border-[#ded3c5] bg-white p-2.5 transition-transform duration-300 hover:scale-[1.02]">
-              <img
-                src="/images/id-card.png"
-                alt="Arnavi Bhagat - Creative License ID Card"
-                className="w-full h-auto rounded-xl object-contain"
-              />
+            <div className={`diary-stage ${diaryOpen ? 'is-open' : ''}`}>
+              <div className="diary-page diary-cover">
+                <img src="/images/about-diary-cover.png" alt="Arnavi Bhagat diary cover" />
+              </div>
+              <div className="diary-page diary-inside">
+                <img src="/images/about-diary-page.png" alt="Arnavi Bhagat about diary page" />
+              </div>
             </div>
             <p className="text-xs text-[#736a61] font-inter mt-4 text-center">
-              Licensed UX & Visual Designer • Valid: Does Not Expire
+              Scroll to open the diary
             </p>
           </div>
 
