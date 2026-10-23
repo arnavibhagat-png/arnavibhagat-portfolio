@@ -18,7 +18,7 @@ export default function Home() {
       <main className="relative z-10 flex-1 flex items-start justify-center pt-2 sm:pt-3 pb-4">
         <div className="w-full flex justify-center px-1 sm:px-3">
           <img
-            src="/pin board.png"
+            src="/images/pin-board.png"
             alt="Arnavi pin board"
             className="w-full max-w-[1280px] h-auto object-contain drop-shadow-[0_22px_36px_rgba(58,32,20,0.16)]"
           />
