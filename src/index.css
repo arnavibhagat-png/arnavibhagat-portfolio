@@ -68,6 +68,25 @@
   animation: page-enter 500ms ease-out both;
 }
 
+.scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 650ms ease,
+    transform 650ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-transition-wave {
+    visibility: hidden;
+  }
+}
+
 .diary-stage {
   position: relative;
   width: min(100%, 440px);
@@ -115,9 +134,15 @@
 
 @media (prefers-reduced-motion: reduce) {
   .page-enter,
+  .scroll-reveal,
   .diary-page {
     animation: none;
     transition: none;
+  }
+
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
   }
 }
 
