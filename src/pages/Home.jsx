@@ -62,7 +62,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#461102] text-[#22201d] font-inter">
+    <div className="min-h-screen overflow-x-hidden bg-[#310C02] text-[#22201d] font-inter">
       <section
         ref={transitionRef}
         className="relative isolate h-[100svh] min-h-[480px] w-full overflow-hidden"
@@ -89,30 +89,35 @@ export default function Home() {
         </div>
 
         <div
-          className="absolute inset-x-0 bottom-0 z-30 flex justify-center overflow-visible pointer-events-none select-none"
+          ref={waveRef}
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-center overflow-visible select-none will-change-transform"
           aria-hidden="true"
         >
           <img
-            ref={waveRef}
             src="/images/brown-wave.png"
             alt=""
-            className="home-transition-wave block h-auto max-w-none shrink-0 will-change-transform"
+            className="home-transition-wave block h-auto max-w-none shrink-0"
             width="768"
             height="1244"
             style={{ width: 'max(100vw, 80svh)' }}
           />
+          <h1 className="absolute left-1/2 top-[calc(6.5%+48px+5cm)] w-[90vw] max-w-[1280px] -translate-x-1/2 text-left font-bowlby text-[clamp(2rem,8.15vw,125px)] leading-[0.95] text-[#FFFAF6]">
+            I’m a Designer
+            <br />
+            who
+          </h1>
         </div>
       </section>
 
       <main>
-        <section className="relative bg-[#461102] px-4 py-16 sm:px-8 sm:py-24">
+        <section className="relative bg-[#310C02] px-4 py-16 sm:px-8 sm:py-24">
           <div className="mx-auto max-w-6xl">
             <ProjectGrid />
           </div>
         </section>
       </main>
 
-      <footer className="w-full border-t border-white/15 bg-[#461102] px-4 py-6 text-center text-xs text-white/75">
+      <footer className="w-full border-t border-white/15 bg-[#310C02] px-4 py-6 text-center text-xs text-white/75">
         Arnavi Bhagat • UX &amp; Visual Designer Portfolio • Nagpur, India
       </footer>
     </div>

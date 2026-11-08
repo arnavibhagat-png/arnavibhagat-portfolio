@@ -8,7 +8,7 @@ export default function Contact() {
       <main className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-16 w-full flex-1">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#ded3c5] gap-4">
           <div>
-            <span className="text-xs uppercase tracking-[0.2em] text-[#8c4a3e] font-inter font-semibold">
+            <span className="text-xs uppercase tracking-[0.2em] text-[#310C02] font-inter font-semibold">
               Get In Touch
             </span>
             <h1 className="text-4xl sm:text-5xl font-lobster tracking-wide mt-2 text-[#22201d] font-normal">Let's Connect</h1>
@@ -51,19 +51,19 @@ export default function Contact() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#ded3c5] hover:border-[#8c4a3e] hover:shadow-sm text-sm font-medium text-[#22201d] transition-all"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#ded3c5] hover:border-[#310C02] hover:shadow-sm text-sm font-medium text-[#22201d] transition-all"
               >
                 <span>LinkedIn Profile</span>
-                <span className="text-[#8c4a3e]">↗</span>
+                <span className="text-[#310C02]">↗</span>
               </a>
               <a
                 href="https://figma.com"
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#ded3c5] hover:border-[#8c4a3e] hover:shadow-sm text-sm font-medium text-[#22201d] transition-all"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#ded3c5] hover:border-[#310C02] hover:shadow-sm text-sm font-medium text-[#22201d] transition-all"
               >
                 <span>Figma Community / Portfolio</span>
-                <span className="text-[#8c4a3e]">↗</span>
+                <span className="text-[#310C02]">↗</span>
               </a>
             </div>
           </div>

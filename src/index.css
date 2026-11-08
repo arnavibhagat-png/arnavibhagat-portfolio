@@ -46,7 +46,7 @@
 }
 
 .navbar-glass {
-  background: rgba(74, 44, 37, 0.82);
+  background: rgba(49, 12, 2, 0.82);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.16);

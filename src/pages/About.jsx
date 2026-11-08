@@ -18,7 +18,7 @@ export default function About() {
       <main className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 w-full flex-1">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#ded3c5] gap-4">
           <div>
-            <span className="text-xs uppercase tracking-[0.2em] text-[#8c4a3e] font-inter font-semibold">Creative License #0026</span>
+            <span className="text-xs uppercase tracking-[0.2em] text-[#310C02] font-inter font-semibold">Creative License #0026</span>
             <h1 className="text-4xl sm:text-5xl font-lobster tracking-wide mt-2 text-[#22201d] font-normal">About Me</h1>
           </div>
           <Link
