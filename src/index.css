@@ -41,8 +41,68 @@
   font-family: 'Bowlby One', cursive, sans-serif !important;
 }
 
+.font-bubbler {
+  font-family: 'Bubbler One', sans-serif !important;
+}
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif !important;
+}
+
 .font-poppins {
   font-family: 'Poppins', sans-serif !important;
+}
+
+.word-flip {
+  position: relative;
+  vertical-align: baseline;
+}
+
+.word-flip-track {
+  animation: word-flip 12s infinite;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@keyframes word-flip {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  25% {
+    transform: translateY(-20%);
+  }
+  45% {
+    transform: translateY(-20%);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  50% {
+    transform: translateY(-40%);
+  }
+  70% {
+    transform: translateY(-40%);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  75% {
+    transform: translateY(-60%);
+  }
+  95% {
+    transform: translateY(-60%);
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  100% {
+    transform: translateY(-80%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-flip-track {
+    animation: none;
+    transform: translateY(0);
+  }
 }
 
 .navbar-glass {
