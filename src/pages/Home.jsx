@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Nav from '../components/Nav'
+import PinboardLink from '../components/PinboardLink'
 import ProjectGrid from '../components/ProjectGrid'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -80,12 +81,34 @@ export default function Home() {
         <Nav />
 
         <div className="absolute inset-0 z-20 flex items-center justify-center px-1 sm:px-3">
-          <img
+          <div
             ref={boardRef}
-            src="/images/pin-board.png"
-            alt="Arnavi pin board"
-            className="h-auto w-full max-w-[1280px] origin-center drop-shadow-[0_22px_36px_rgba(58,32,20,0.16)] will-change-transform"
-          />
+            className="relative w-full max-w-[1280px] origin-center drop-shadow-[0_22px_36px_rgba(58,32,20,0.16)] will-change-transform"
+          >
+            <img
+              src="/images/pin-board.png"
+              alt="Arnavi pin board"
+              className="block h-auto w-full"
+            />
+            <PinboardLink
+              to="/about"
+              src="/images/id-card.png"
+              alt="ID card — About Me"
+              className="pinboard-link-id"
+            />
+            <PinboardLink
+              to="/projects"
+              src="/images/todo-list.png"
+              alt="To-do list — Projects and Research"
+              className="pinboard-link-todo"
+            />
+            <PinboardLink
+              to="/about#work-experience"
+              src="/images/work-experience.png"
+              alt="Work experience receipt — About Me, Work Experience"
+              className="pinboard-link-work"
+            />
+          </div>
         </div>
 
         <div
@@ -102,12 +125,12 @@ export default function Home() {
           />
           <h1
             aria-label="I’m a Designer who researches, ideates, creates, and solves"
-            className="absolute left-1/2 top-[calc(6.5%+48px+5cm)] w-[90vw] max-w-[1280px] -translate-x-1/2 text-left font-bowlby text-[clamp(2rem,8.15vw,125px)] leading-[0.95] text-[#FFFAF6]"
+            className="absolute left-1/2 top-[calc(6.5%+48px+5cm)] home-text-inset max-w-[1280px] -translate-x-1/2 text-center font-bowlby text-[clamp(2rem,8.15vw,110px)] leading-[0.95] text-[#FFFAF6]"
           >
             I’m a Designer
             <br />
             who{' '}
-            <span className="word-flip inline-grid h-[1em] overflow-hidden align-bottom font-bubbler text-[clamp(2rem,8.15vw,125px)] leading-none">
+            <span className="word-flip inline-grid h-[1em] overflow-hidden align-bottom font-bubbler text-[clamp(2rem,8.15vw,110px)] leading-none">
               <span className="invisible col-start-1 row-start-1 whitespace-nowrap" aria-hidden="true">
                 researches
               </span>
@@ -120,7 +143,7 @@ export default function Home() {
               </span>
             </span>
           </h1>
-          <p className="absolute left-1/2 top-[calc(6.5%+48px+7cm+clamp(4rem,16.3vw,15.625rem))] w-[90vw] max-w-[1280px] -translate-x-1/2 text-center font-poppins text-[24px] leading-relaxed text-[#FFFAF6]">
+          <p className="absolute left-1/2 top-[calc(6.5%+48px+7cm+clamp(4rem,16.3vw,15.625rem))] home-text-inset max-w-[1280px] -translate-x-1/2 text-center font-poppins text-[24px] leading-relaxed text-[#FFFAF6]">
             It started with a love for designing and creating. But somewhere along the way, I became just as curious about the people on the other side of the design—their thoughts, behaviours, and the little things that shape their everyday experiences.
             <br />
             That’s when design became more than making things look good. It became a way to understand people, solve problems, and create digital experiences that feel as good as they function.

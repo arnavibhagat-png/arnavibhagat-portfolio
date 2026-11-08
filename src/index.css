@@ -128,6 +128,104 @@
   animation: page-enter 500ms ease-out both;
 }
 
+.home-text-inset {
+  width: calc(100vw - 10cm);
+}
+
+@media (max-width: 1024px) {
+  .home-text-inset {
+    width: 90vw;
+  }
+}
+
+.pinboard-link {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  line-height: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pinboard-link img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: rotate(var(--pinboard-angle, 0deg)) scale(1);
+  transition: transform 300ms ease-in-out;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+}
+
+.pinboard-link-id {
+  top: 9.5%;
+  left: 5.2%;
+  width: 33.2%;
+  --pinboard-angle: -4deg;
+}
+
+.pinboard-link-todo {
+  top: 53.9%;
+  left: 12.4%;
+  width: 24.1%;
+  --pinboard-angle: -1deg;
+}
+
+.pinboard-link-work {
+  top: 14.8%;
+  left: 74.3%;
+  width: 22.1%;
+  --pinboard-angle: -1deg;
+}
+
+.pinboard-link:focus-visible {
+  box-shadow: inset 0 0 0 3px #fffaf6;
+  border-radius: 4px;
+}
+
+@media (hover: hover) {
+  .pinboard-link:hover img {
+    transform: rotate(var(--pinboard-angle, 0deg)) scale(1.2);
+  }
+}
+
+.pinboard-link:hover,
+.pinboard-link:focus-visible,
+.pinboard-link.is-pressed {
+  z-index: 20;
+}
+
+.pinboard-link:active img,
+.pinboard-link.is-pressed img {
+  transform: rotate(var(--pinboard-angle, 0deg)) scale(0.94);
+  transition-duration: 80ms;
+}
+
+@keyframes route-slide-in {
+  from {
+    opacity: 0.75;
+    transform: translateX(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes route-slide-out {
+  to {
+    opacity: 0.75;
+    transform: translateX(-2rem);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 260ms cubic-bezier(0.22, 0.61, 0.36, 1) both route-slide-out;
+}
+
+::view-transition-new(root) {
+  animation: 340ms cubic-bezier(0.22, 0.61, 0.36, 1) both route-slide-in;
+}
+
 .scroll-reveal {
   opacity: 0;
   transform: translate3d(0, 24px, 0);
@@ -195,9 +293,19 @@
 @media (prefers-reduced-motion: reduce) {
   .page-enter,
   .scroll-reveal,
-  .diary-page {
+  .diary-page,
+  .pinboard-link img,
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
     animation: none;
     transition: none;
+  }
+
+  .pinboard-link img,
+  .pinboard-link:active img,
+  .pinboard-link:hover img,
+  .pinboard-link.is-pressed img {
+    transform: rotate(var(--pinboard-angle, 0deg)) scale(1);
   }
 
   .scroll-reveal {

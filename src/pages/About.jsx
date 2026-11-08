@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import Nav from '../components/Nav'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { WorkExperienceSection } from './Work'
 
 export default function About() {
   const [diaryOpen, setDiaryOpen] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => setDiaryOpen(window.scrollY > 80)
@@ -11,6 +13,19 @@ export default function About() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (location.hash !== '#work-experience') return
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById('work-experience')?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    })
+
+    return () => window.cancelAnimationFrame(frame)
+  }, [location.hash])
 
   return (
     <div className="page-enter min-h-screen bg-[#FFFAF6] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
@@ -93,6 +108,25 @@ export default function About() {
             </div>
           </div>
         </div>
+
+        <section
+          id="work-experience"
+          className="scroll-mt-24 mt-16 border-t border-[#ded3c5] pt-10"
+          aria-labelledby="work-experience-title"
+        >
+          <div className="mb-8">
+            <span className="text-xs uppercase tracking-[0.2em] text-[#2d6a4f] font-inter font-semibold">
+              Order #0063 • Work Experience
+            </span>
+            <h2
+              id="work-experience-title"
+              className="text-4xl sm:text-5xl font-lobster tracking-wide mt-2 text-[#22201d] font-normal"
+            >
+              Work Experience
+            </h2>
+          </div>
+          <WorkExperienceSection />
+        </section>
       </main>
 
       <footer className="w-full border-t border-[#ded3c5] px-4 py-6 text-center text-xs text-[#736a61] font-inter bg-[#eae0d5]/40 mt-12">
