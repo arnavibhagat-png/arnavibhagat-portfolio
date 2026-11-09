@@ -3,7 +3,10 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Nav from '../components/Nav'
 import PinboardLink from '../components/PinboardLink'
-import ProjectGrid from '../components/ProjectGrid'
+import curaNavMockup from '../../CuraNav.png'
+import agrovisionMockup from '../../agrovision.png'
+import dementiaMockup from '../../Dementia research.png'
+import valaceMockup from '../../Valace.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -55,6 +58,24 @@ export default function Home() {
           },
           0,
         )
+
+      document.querySelectorAll('.home-mockups img').forEach((image) => {
+        gsap.fromTo(
+          image,
+          { scale: 0.82 },
+          {
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: image,
+              start: 'top 88%',
+              end: 'top 58%',
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          },
+        )
+      })
 
       ScrollTrigger.refresh()
     }, transition)
@@ -123,6 +144,11 @@ export default function Home() {
             height="1244"
             style={{ width: 'max(100vw, 80svh)' }}
           />
+          <img
+            src="/images/heyy-sticker.png"
+            alt="Hey yaaa!!"
+            className="home-greeting-sticker"
+          />
           <h1
             aria-label="I’m a Designer who researches, ideates, creates, and solves"
             className="absolute left-1/2 top-[calc(6.5%+48px+5cm)] home-text-inset max-w-[1280px] -translate-x-1/2 text-center font-bowlby text-[clamp(2rem,8.15vw,110px)] leading-[0.95] text-[#FFFAF6]"
@@ -152,9 +178,14 @@ export default function Home() {
       </section>
 
       <main>
-        <section className="relative bg-[#310C02] px-4 py-16 sm:px-8 sm:py-24">
-          <div className="mx-auto max-w-6xl">
-            <ProjectGrid />
+        <section className="home-mockups" aria-label="Selected project mockups">
+          <div className="home-mockups-row home-mockups-row-top">
+            <img src={curaNavMockup} alt="CuraNav mobile health app mockup" />
+            <img src={agrovisionMockup} alt="Agrovision crop monitoring dashboard mockup" />
+          </div>
+          <div className="home-mockups-row home-mockups-row-bottom">
+            <img src={dementiaMockup} alt="Dementia care device mockup" />
+            <img src={valaceMockup} alt="Valace postpartum care app mockup" />
           </div>
         </section>
       </main>
