@@ -1,137 +1,115 @@
-import { useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
 import Nav from '../components/Nav'
-import { Link, useLocation } from 'react-router-dom'
-import { WorkExperienceSection } from './Work'
+import figmaIcon from '../../figma.png'
+import photoshopIcon from '../../photoshop.png'
+import illustratorIcon from '../../illustrator.png'
+import framerIcon from '../../framer.png'
+import procreateIcon from '../../procreate.png'
+import sketchupIcon from '../../sketchup.png'
+import unityIcon from '../../unity.png'
+import afterEffectsIcon from '../../after effects.png'
 
-export default function About() {
-  const [diaryOpen, setDiaryOpen] = useState(false)
-  const location = useLocation()
+const tools = [
+  { name: 'Figma', src: figmaIcon },
+  { name: 'Photoshop', src: photoshopIcon },
+  { name: 'Illustrator', src: illustratorIcon },
+  { name: 'Framer', src: framerIcon },
+  { name: 'Procreate', src: procreateIcon },
+  { name: 'SketchUp', src: sketchupIcon },
+  { name: 'Unity', src: unityIcon },
+  { name: 'After Effects', src: afterEffectsIcon },
+]
 
-  useEffect(() => {
-    const handleScroll = () => setDiaryOpen(window.scrollY > 80)
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+function DraggableTool({ name, src }) {
+  const [offset, setOffset] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const dragRef = useRef(null)
 
-  useEffect(() => {
-    if (location.hash !== '#work-experience') return
+  const handlePointerDown = (event) => {
+    event.currentTarget.setPointerCapture(event.pointerId)
+    dragRef.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      offsetX: offset.x,
+      offsetY: offset.y,
+    }
+    setIsDragging(true)
+  }
 
-    const frame = window.requestAnimationFrame(() => {
-      document.getElementById('work-experience')?.scrollIntoView({
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-        block: 'start',
-      })
+  const handlePointerMove = (event) => {
+    const drag = dragRef.current
+    if (!drag || drag.pointerId !== event.pointerId) return
+
+    setOffset({
+      x: drag.offsetX + event.clientX - drag.x,
+      y: drag.offsetY + event.clientY - drag.y,
     })
+  }
 
-    return () => window.cancelAnimationFrame(frame)
-  }, [location.hash])
+  const handlePointerUp = (event) => {
+    if (dragRef.current?.pointerId !== event.pointerId) return
+    dragRef.current = null
+    setIsDragging(false)
+  }
+
+  const handleKeyDown = (event) => {
+    const step = event.shiftKey ? 20 : 5
+    const movements = {
+      ArrowUp: [0, -step],
+      ArrowDown: [0, step],
+      ArrowLeft: [-step, 0],
+      ArrowRight: [step, 0],
+    }
+    const movement = movements[event.key]
+    if (!movement) return
+
+    event.preventDefault()
+    setOffset(({ x, y }) => ({ x: x + movement[0], y: y + movement[1] }))
+  }
 
   return (
-    <div className="page-enter min-h-screen bg-[#FFFAF6] text-[#22201d] font-inter selection:bg-[#d8c3b0] selection:text-[#201e1c] flex flex-col justify-between">
+    <button
+      type="button"
+      className={`about-tool${isDragging ? ' is-dragging' : ''}`}
+      style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
+      aria-label={`Move ${name} icon. Use arrow keys to move it.`}
+      title={name}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      onKeyDown={handleKeyDown}
+    >
+      <img src={src} alt="" draggable="false" />
+    </button>
+  )
+}
+
+export default function About() {
+  return (
+    <div className="min-h-screen overflow-hidden bg-[#FFFAF6]">
       <Nav />
-      <main className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 w-full flex-1">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#ded3c5] gap-4">
-          <div>
-            <span className="text-xs uppercase tracking-[0.2em] text-[#310C02] font-inter font-semibold">Creative License #0026</span>
-            <h1 className="text-4xl sm:text-5xl font-lobster tracking-wide mt-2 text-[#22201d] font-normal">About Me</h1>
+      <main className="about-corner-page">
+        <div className="about-intro">
+          <div className="about-visual">
+            <img src="/images/about-me-corner.png" alt="" className="about-corner-art" />
+            <img
+              src="/images/id-card.png"
+              alt="Arnavi's creative license ID card"
+              className="about-id-card"
+            />
+            <div className="about-tools" aria-label="Design tools">
+              {tools.map((tool) => (
+                <DraggableTool key={tool.name} {...tool} />
+              ))}
+            </div>
           </div>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-[#736a61] hover:text-[#22201d] font-inter font-medium transition-colors self-start md:self-auto"
-          >
-            <span>← Back to Pinboard</span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start">
-          {/* Diary visual: scroll to turn from the cover to the inside page */}
-          <div className="lg:col-span-5 flex flex-col items-center">
-            <div className={`diary-stage ${diaryOpen ? 'is-open' : ''}`}>
-              <div className="diary-page diary-cover">
-                <img src="/images/about-diary-cover.png" alt="Arnavi Bhagat diary cover" />
-              </div>
-              <div className="diary-page diary-inside">
-                <img src="/images/about-diary-page.png" alt="Arnavi Bhagat about diary page" />
-              </div>
-            </div>
-            <p className="text-xs text-[#736a61] font-inter mt-4 text-center">
-              Scroll to open the diary
-            </p>
-          </div>
-
-          {/* Bio info */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="bg-[#FAF6F0] border border-[#ded3c5] rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm">
-              <h2 className="text-3xl font-lobster text-[#22201d] font-normal">Hi, I'm Arnavi Bhagat 👋</h2>
-              <p className="text-[#3d3833] text-base leading-relaxed">
-                I am a passionate <strong className="text-[#22201d] font-semibold">UX Designer</strong> and <strong className="text-[#22201d] font-semibold">Visual Designer</strong> based in Nagpur, Maharashtra.
-                My mission is simple: to create, design, think, and make digital experiences intuitive, empathetic, and visually captivating.
-              </p>
-              <p className="text-[#6e655c] text-sm leading-relaxed">
-                With a blend of user research, interaction design, and aesthetic craftsmanship, I transform complex problems into clean, accessible digital interfaces that delight users and deliver measurable impact.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#FAF6F0] border border-[#ded3c5] rounded-xl p-5 shadow-sm">
-                <span className="text-xs uppercase text-[#736a61] font-medium">Location</span>
-                <p className="text-lg font-semibold text-[#22201d] mt-1">Nagpur, India</p>
-              </div>
-              <div className="bg-[#FAF6F0] border border-[#ded3c5] rounded-xl p-5 shadow-sm">
-                <span className="text-xs uppercase text-[#736a61] font-medium">Core Expertise</span>
-                <p className="text-lg font-semibold text-[#22201d] mt-1">UX / UI / Visual</p>
-              </div>
-            </div>
-
-            <div className="bg-[#FAF6F0] border border-[#ded3c5] rounded-2xl p-6 shadow-sm">
-              <h3 className="text-xl font-lobster text-[#22201d] mb-3 font-normal">Core Toolset & Skills</h3>
-              <div className="flex flex-wrap gap-2 font-inter">
-                {[
-                  'UX Research',
-                  'UI Design',
-                  'Figma',
-                  'Wireframing & Prototyping',
-                  'Design Systems',
-                  'Visual Identity',
-                  'User Testing',
-                  'Accessibility (a11y)',
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#FFFAF6] border border-[#d8ccbe] text-[#3d3833]"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+          <div className="about-intro-copy">
+            <h1 className="font-bowlby">Hello! I’m Arnavi Bhagat</h1>
           </div>
         </div>
-
-        <section
-          id="work-experience"
-          className="scroll-mt-24 mt-16 border-t border-[#ded3c5] pt-10"
-          aria-labelledby="work-experience-title"
-        >
-          <div className="mb-8">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#2d6a4f] font-inter font-semibold">
-              Order #0063 • Work Experience
-            </span>
-            <h2
-              id="work-experience-title"
-              className="text-4xl sm:text-5xl font-lobster tracking-wide mt-2 text-[#22201d] font-normal"
-            >
-              Work Experience
-            </h2>
-          </div>
-          <WorkExperienceSection />
-        </section>
       </main>
-
-      <footer className="w-full border-t border-[#ded3c5] px-4 py-6 text-center text-xs text-[#736a61] font-inter bg-[#eae0d5]/40 mt-12">
-        Arnavi Bhagat • UX & Visual Designer Portfolio • Nagpur, India
-      </footer>
     </div>
   )
 }

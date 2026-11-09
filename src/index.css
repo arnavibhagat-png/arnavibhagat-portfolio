@@ -132,6 +132,144 @@
   width: calc(100vw - 10cm);
 }
 
+.about-corner-page {
+  min-height: calc(100svh - 5rem);
+  background: #fffaf6;
+}
+
+.about-intro {
+  display: grid;
+  min-height: calc(100svh - 5rem);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+.about-visual {
+  position: relative;
+  min-width: 0;
+}
+
+.about-corner-art {
+  display: block;
+  width: min(100%, 650px);
+  height: auto;
+}
+
+.about-id-card {
+  position: absolute;
+  top: 12%;
+  left: 15%;
+  width: min(86%, 560px);
+  height: auto;
+  transform: rotate(-4deg);
+  filter: drop-shadow(0 10px 8px rgba(34, 20, 12, 0.28));
+}
+
+.about-tools {
+  position: absolute;
+  top: 60%;
+  left: 20%;
+  display: grid;
+  width: 76%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-items: center;
+  gap: clamp(8px, 1.6vw, 22px) 6px;
+}
+
+.about-tool {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: clamp(48px, 6.7vw, 96px);
+  aspect-ratio: 1;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.about-tool img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.about-tool:hover,
+.about-tool:focus-visible {
+  z-index: 2;
+}
+
+.about-tool:focus-visible {
+  outline: 2px solid #310c02;
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+.about-tool.is-dragging {
+  z-index: 3;
+  cursor: grabbing;
+}
+
+.about-intro-copy {
+  display: flex;
+  align-items: flex-start;
+  padding: clamp(2rem, 5vw, 5rem) clamp(2rem, 4vw, 4rem) 2rem;
+}
+
+.about-intro-copy h1 {
+  margin: 0;
+  color: #310c02;
+  font-size: clamp(2.5rem, 5.125vw, 82px);
+  line-height: 1.08;
+  text-align: left;
+}
+
+@media (max-width: 700px) {
+  .about-intro {
+    display: block;
+    min-height: calc(100svh - 4rem);
+  }
+
+  .about-visual {
+    min-height: min(90vw, 460px);
+  }
+
+  .about-corner-art {
+    width: min(82vw, 420px);
+  }
+
+  .about-id-card {
+    top: 12%;
+    left: 12%;
+    width: min(86%, 500px);
+  }
+
+  .about-tools {
+    top: 62%;
+    left: 8%;
+    width: 88%;
+    gap: 8px 4px;
+  }
+
+  .about-tool {
+    width: clamp(48px, 14vw, 72px);
+  }
+
+  .about-intro-copy {
+    padding: 1rem 1.25rem 3rem;
+  }
+
+  .about-intro-copy h1 {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+}
+
 .home-greeting-sticker {
   position: absolute;
   top: calc(6.5% + 48px + 5cm);
