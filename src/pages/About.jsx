@@ -8,6 +8,10 @@ import procreateIcon from '../../procreate.png'
 import sketchupIcon from '../../sketchup.png'
 import unityIcon from '../../unity.png'
 import afterEffectsIcon from '../../after effects.png'
+import mailIcon from '../../mail.png'
+import contactIcon from '../../contact.png'
+import behanceIcon from '../../behance.png'
+import linkedinIcon from '../../linkedin.png'
 
 const tools = [
   { name: 'Figma', src: figmaIcon },
@@ -88,7 +92,7 @@ function DraggableTool({ name, src }) {
 
 export default function About() {
   return (
-    <div className="min-h-screen overflow-hidden bg-[#FFFAF6]">
+    <div className="min-h-screen overflow-x-hidden bg-[#FFFAF6]">
       <Nav />
       <main className="about-corner-page">
         <div className="about-intro">
@@ -106,9 +110,206 @@ export default function About() {
             </div>
           </div>
           <div className="about-intro-copy">
-            <h1 className="font-bowlby">Hello! I’m Arnavi Bhagat</h1>
+            <div className="about-content">
+              <h1 className="about-title">
+                <span className="font-bowlby">About</span>
+                <span className="font-bubbler">me</span>
+              </h1>
+              <p className="about-description font-poppins">
+                Hi, I’m Arnavi!
+                <br />
+                I’m a UI/UX design student who’s curious about people, their behaviours, and the
+                little things that shape their everyday experiences. I enjoy digging deeper, asking
+                questions, and understanding the why behind things, which is what draws me towards
+                <strong> research and product design.</strong> I like turning those insights into
+                thoughtful solutions that solve problems quietly and efficiently. For me, good
+                design isn't always about being noticed; sometimes, it's about simply making things
+                work better.
+              </p>
+              <section className="about-education" aria-labelledby="education-heading">
+                <h2 id="education-heading" className="font-bowlby">
+                  Education
+                </h2>
+                <ul className="about-education-list font-poppins">
+                  <li>
+                    Bachelor’s of Design - <strong>Communication Design</strong>,
+                    <br />
+                    Symbiosis Institute of Design
+                    <br />
+                    2023 – 2027.
+                  </li>
+                  <li>
+                    Higher Secondary Education
+                    <br />
+                    St. Paul's College
+                    <br />
+                    2021-2023
+                  </li>
+                </ul>
+              </section>
+            </div>
           </div>
         </div>
+        <section className="about-languages-skills" aria-label="Languages and skills">
+          <div className="about-languages" aria-labelledby="languages-heading">
+            <h2 id="languages-heading" className="font-bowlby">
+              Language
+            </h2>
+            <ul className="about-language-list font-poppins">
+              <li>
+                <span>English</span>
+                <div
+                  className="about-language-meter"
+                  role="meter"
+                  aria-label="English proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="94"
+                >
+                  <span style={{ width: '94%' }} />
+                </div>
+              </li>
+              <li>
+                <span>Hindi</span>
+                <div
+                  className="about-language-meter"
+                  role="meter"
+                  aria-label="Hindi proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="75"
+                >
+                  <span style={{ width: '75%' }} />
+                </div>
+              </li>
+              <li>
+                <span>Marathi</span>
+                <div
+                  className="about-language-meter"
+                  role="meter"
+                  aria-label="Marathi proficiency"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="75"
+                >
+                  <span style={{ width: '75%' }} />
+                </div>
+              </li>
+            </ul>
+          </div>
+          <section className="about-skills" aria-labelledby="skills-heading">
+            <h2 id="skills-heading" className="font-bubbler">
+              Skills
+            </h2>
+            <ul className="about-skills-list font-poppins">
+              <li>User Research</li>
+              <li>Wireframing</li>
+              <li>Prototyping</li>
+              <li>Information Architecture</li>
+              <li>Interaction Design</li>
+              <li>UX Thinking</li>
+              <li>Usability Testing</li>
+              <li>User Journey Mapping</li>
+              <li>Accessibility Design</li>
+              <li>Ideation</li>
+              <li>Visual Design</li>
+              <li>Design Systems</li>
+            </ul>
+          </section>
+          <section className="about-contact" aria-labelledby="about-contact-heading">
+            <h2 id="about-contact-heading" className="font-bowlby">
+              Contact
+            </h2>
+            <div className="about-contact-links font-poppins">
+              <div className="about-contact-column">
+                <a href="mailto:arnavibhagat@gmail.com">
+                  <img src={mailIcon} alt="" />
+                  <span>arnavibhagat@gmail.com</span>
+                </a>
+                <a href="tel:+918806567626">
+                  <img src={contactIcon} alt="" />
+                  <span>8806567626</span>
+                </a>
+              </div>
+              <div className="about-contact-column">
+                <a href="https://www.behance.net/" target="_blank" rel="noreferrer">
+                  <img src={behanceIcon} alt="" />
+                  <span>Behance</span>
+                </a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+                  <img src={linkedinIcon} alt="" />
+                  <span>LinkedIn</span>
+                </a>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section className="about-work" aria-labelledby="work-heading">
+          <div className="about-work-copy">
+            <h2 id="work-heading" className="font-bowlby">
+              Work Experience
+            </h2>
+            <div className="about-work-timeline">
+              <article className="about-work-entry">
+                <div className="about-work-entry-heading font-poppins">
+                  <h3>UI/UX Designer — Tars Digital</h3>
+                  <span>2 Months</span>
+                </div>
+                <ul className="about-work-entry-details font-poppins">
+                  <li>
+                    Researched brand identity and developed brand guidelines for visual consistency.
+                  </li>
+                  <li>Designed user onboarding screens to improve clarity and ease of use.</li>
+                  <li>
+                    Analysed existing products and documented areas for improvement through
+                    comparative analysis.
+                  </li>
+                  <li>
+                    Developed information architecture for a new product to structure content and
+                    support intuitive navigation.
+                  </li>
+                </ul>
+              </article>
+              <article className="about-work-entry">
+                <div className="about-work-entry-heading font-poppins">
+                  <h3>Graphic Designer — Asmi.mindcare</h3>
+                  <span>1 Month</span>
+                </div>
+                <ul className="about-work-entry-details font-poppins">
+                  <li>
+                    Led design tasks as part of the core design team, contributing to the brand’s
+                    visual identity.
+                  </li>
+                  <li>
+                    Designed the logo, visual identity, and business cards to establish a consistent
+                    brand presence.
+                  </li>
+                  <li>Created brochure designs aligned with the brand’s communication goals.</li>
+                  <li>
+                    Developed website wireframes to structure content and plan the user experience.
+                  </li>
+                </ul>
+              </article>
+            </div>
+          </div>
+          <div className="about-work-art">
+            <img
+              src="/images/work-experience.png"
+              alt="Illustrated receipt listing Arnavi's work experience"
+              className="about-work-receipt"
+            />
+            <img
+              src="/images/work-experience-tape-plaid.png"
+              alt=""
+              className="about-work-tape about-work-tape-plaid"
+            />
+            <img
+              src="/images/work-experience-tape-kraft.png"
+              alt=""
+              className="about-work-tape about-work-tape-kraft"
+            />
+          </div>
+        </section>
       </main>
     </div>
   )

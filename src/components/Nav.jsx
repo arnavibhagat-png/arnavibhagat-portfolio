@@ -2,6 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 
 export default function Nav() {
   const location = useLocation()
+  const isDarkBackground = location.pathname === '/'
 
   const navItems = [
     { name: 'About', path: '/about' },
@@ -13,11 +14,11 @@ export default function Nav() {
     <header className="w-full relative z-[100]">
       {/* Fixed navbar stays fixed in its spot at the top on top of everything */}
       <div className="fixed top-3 sm:top-5 left-0 right-0 z-[100] w-full px-3 sm:px-6 flex justify-center pointer-events-none">
-        <nav className="navbar-glass pointer-events-auto w-full max-w-5xl rounded-full px-3 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between transition-all duration-300">
+        <nav className={`navbar-glass ${isDarkBackground ? 'navbar-glass-dark' : 'navbar-glass-light'} pointer-events-auto w-full max-w-5xl rounded-full px-3 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between transition-all duration-300`}>
         {/* Brand: Avatar + Bold Name in Bowlby One */}
         <NavLink
           to="/"
-          className="flex items-center gap-2.5 sm:gap-3 group no-underline text-white pl-0.5 sm:pl-1 select-none"
+          className="navbar-brand flex items-center gap-2.5 sm:gap-3 group no-underline pl-0.5 sm:pl-1 select-none"
           aria-label="Arnavi - Home"
         >
           <img
@@ -25,7 +26,7 @@ export default function Nav() {
             alt="Arnavi avatar"
             className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover shrink-0 select-none transition-transform duration-200 group-hover:scale-105 shadow-sm"
           />
-          <span className="font-bowlby text-xl sm:text-2xl text-white tracking-wide leading-none select-none">
+          <span className="font-bowlby text-xl sm:text-2xl tracking-wide leading-none select-none">
             Arnavi
           </span>
         </NavLink>
@@ -42,10 +43,8 @@ export default function Nav() {
               <NavLink
                 key={item.name}
                 to={item.path}
-                className={`text-sm sm:text-base tracking-wide transition-all duration-200 no-underline select-none ${
-                  isActive
-                    ? 'text-white font-semibold opacity-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]'
-                    : 'text-white/80 hover:text-white hover:opacity-100 font-normal'
+                className={`navbar-link text-sm sm:text-base tracking-wide transition-all duration-200 no-underline select-none ${
+                  isActive ? 'is-active font-semibold' : 'font-normal'
                 }`}
               >
                 {item.name}
@@ -60,4 +59,3 @@ export default function Nav() {
     </header>
   )
 }
-
