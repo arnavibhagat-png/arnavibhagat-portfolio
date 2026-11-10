@@ -196,6 +196,33 @@ export default function About() {
                 </div>
               </li>
             </ul>
+            <section className="about-contact" aria-labelledby="about-contact-heading">
+              <h2 id="about-contact-heading" className="font-bowlby">
+                Contact
+              </h2>
+              <div className="about-contact-links font-poppins">
+                <div className="about-contact-column">
+                  <a href="mailto:arnavibhagat@gmail.com">
+                    <img src={mailIcon} alt="" />
+                    <span>arnavibhagat@gmail.com</span>
+                  </a>
+                  <a href="tel:+918806567626">
+                    <img src={contactIcon} alt="" />
+                    <span>8806567626</span>
+                  </a>
+                </div>
+                <div className="about-contact-column">
+                  <a href="https://www.behance.net/" target="_blank" rel="noreferrer">
+                    <img src={behanceIcon} alt="" />
+                    <span>Behance</span>
+                  </a>
+                  <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+                    <img src={linkedinIcon} alt="" />
+                    <span>LinkedIn</span>
+                  </a>
+                </div>
+              </div>
+            </section>
           </div>
           <section className="about-skills" aria-labelledby="skills-heading">
             <h2 id="skills-heading" className="font-bubbler">
@@ -215,33 +242,6 @@ export default function About() {
               <li>Visual Design</li>
               <li>Design Systems</li>
             </ul>
-          </section>
-          <section className="about-contact" aria-labelledby="about-contact-heading">
-            <h2 id="about-contact-heading" className="font-bowlby">
-              Contact
-            </h2>
-            <div className="about-contact-links font-poppins">
-              <div className="about-contact-column">
-                <a href="mailto:arnavibhagat@gmail.com">
-                  <img src={mailIcon} alt="" />
-                  <span>arnavibhagat@gmail.com</span>
-                </a>
-                <a href="tel:+918806567626">
-                  <img src={contactIcon} alt="" />
-                  <span>8806567626</span>
-                </a>
-              </div>
-              <div className="about-contact-column">
-                <a href="https://www.behance.net/" target="_blank" rel="noreferrer">
-                  <img src={behanceIcon} alt="" />
-                  <span>Behance</span>
-                </a>
-                <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
-                  <img src={linkedinIcon} alt="" />
-                  <span>LinkedIn</span>
-                </a>
-              </div>
-            </div>
           </section>
         </section>
         <section className="about-work" aria-labelledby="work-heading">
@@ -294,19 +294,9 @@ export default function About() {
           </div>
           <div className="about-work-art">
             <img
-              src="/images/work-experience.png"
-              alt="Illustrated receipt listing Arnavi's work experience"
+              src="/images/work-experience-receipt-taped.png"
+              alt="Work experience receipt with plaid tape at the top-left and beige tape at the bottom-right"
               className="about-work-receipt"
-            />
-            <img
-              src="/images/work-experience-tape-plaid.png"
-              alt=""
-              className="about-work-tape about-work-tape-plaid"
-            />
-            <img
-              src="/images/work-experience-tape-kraft.png"
-              alt=""
-              className="about-work-tape about-work-tape-kraft"
             />
           </div>
         </section>
