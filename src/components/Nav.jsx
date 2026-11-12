@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 export default function Nav() {
   const location = useLocation()
@@ -6,7 +6,7 @@ export default function Nav() {
 
   const navItems = [
     { name: 'About', path: '/about' },
-    { name: 'Work', path: '/projects' },
+    { name: 'Work', path: '/#projects' },
     { name: 'Contact', path: '/contact' },
   ]
 
@@ -35,9 +35,22 @@ export default function Nav() {
         <div className="flex items-center gap-5 sm:gap-10 font-poppins pr-2 sm:pr-4">
           {navItems.map((item) => {
             const isWorkActive =
-              item.name === 'Work' &&
-              (location.pathname === '/projects' || location.pathname === '/work')
+              item.name === 'Work' && location.pathname === '/' && location.hash === '#projects'
             const isActive = location.pathname === item.path || isWorkActive
+
+            if (item.name === 'Work') {
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`navbar-link text-sm sm:text-base tracking-wide transition-all duration-200 no-underline select-none ${
+                    isActive ? 'is-active font-semibold' : 'font-normal'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              )
+            }
 
             return (
               <NavLink

@@ -1,8 +1,10 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Nav from '../components/Nav'
 import PinboardLink from '../components/PinboardLink'
+import ProjectGrid from '../components/ProjectGrid'
 import curaNavMockup from '../../CuraNav.png'
 import agrovisionMockup from '../../agrovision.png'
 import dementiaMockup from '../../Dementia research.png'
@@ -11,6 +13,7 @@ import valaceMockup from '../../Valace.png'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Home() {
+  const location = useLocation()
   const transitionRef = useRef(null)
   const boardRef = useRef(null)
   const waveRef = useRef(null)
@@ -83,6 +86,22 @@ export default function Home() {
     return () => context.revert()
   }, [])
 
+  useEffect(() => {
+    if (location.hash !== '#projects') return
+
+    const timeout = window.setTimeout(() => {
+      ScrollTrigger.refresh()
+      document.getElementById('projects')?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth',
+        block: 'start',
+      })
+    }, 100)
+
+    return () => window.clearTimeout(timeout)
+  }, [location.hash])
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#310C02] text-[#22201d] font-inter">
       <section
@@ -118,7 +137,7 @@ export default function Home() {
               className="pinboard-link-id"
             />
             <PinboardLink
-              to="/projects"
+              to="/#projects"
               src="/images/todo-list.png"
               alt="To-do list — Projects and Research"
               className="pinboard-link-todo"
@@ -187,6 +206,15 @@ export default function Home() {
             <img src={dementiaMockup} alt="Dementia care device mockup" />
             <img src={valaceMockup} alt="Valace postpartum care app mockup" />
           </div>
+        </section>
+        <section id="projects" className="home-projects" aria-labelledby="projects-heading">
+          <div className="home-projects-heading">
+            <span className="font-poppins">From the To-Do List</span>
+            <h2 id="projects-heading" className="font-bowlby">
+              Projects &amp; Research
+            </h2>
+          </div>
+          <ProjectGrid />
         </section>
       </main>
 

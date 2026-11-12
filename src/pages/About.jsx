@@ -1,4 +1,6 @@
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Nav from '../components/Nav'
 import figmaIcon from '../../figma.png'
 import photoshopIcon from '../../photoshop.png'
@@ -8,10 +10,8 @@ import procreateIcon from '../../procreate.png'
 import sketchupIcon from '../../sketchup.png'
 import unityIcon from '../../unity.png'
 import afterEffectsIcon from '../../after effects.png'
-import mailIcon from '../../mail.png'
-import contactIcon from '../../contact.png'
-import behanceIcon from '../../behance.png'
-import linkedinIcon from '../../linkedin.png'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const tools = [
   { name: 'Figma', src: figmaIcon },
@@ -91,6 +91,115 @@ function DraggableTool({ name, src }) {
 }
 
 export default function About() {
+  const skillTransitionRef = useRef(null)
+  const skillCardsZoomRef = useRef(null)
+  const skillCardsRef = useRef(null)
+  const skillWaveRef = useRef(null)
+  const workOnWaveRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const transition = skillTransitionRef.current
+    const zoom = skillCardsZoomRef.current
+    const container = skillCardsRef.current
+    const wave = skillWaveRef.current
+    const workOnWave = workOnWaveRef.current
+    if (!transition || !zoom || !container || !wave || !workOnWave) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const cards = container.querySelectorAll('.about-skill-card')
+    if (cards.length === 0) return
+
+    const containerBounds = container.getBoundingClientRect()
+    const stackOffsets = [...cards].map((card) => {
+      const cardBounds = card.getBoundingClientRect()
+      return {
+        x:
+          containerBounds.left +
+          container.clientWidth / 2 -
+          (cardBounds.left + cardBounds.width / 2),
+        y:
+          containerBounds.top +
+          container.clientHeight / 2 -
+          (cardBounds.top + cardBounds.height / 2),
+      }
+    })
+
+    const context = gsap.context(() => {
+      const zoomTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: transition,
+          start: 'top top',
+          end: () => `+=${window.innerHeight * 2.5}`,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      })
+
+      zoomTimeline
+        .fromTo(
+          zoom,
+          { scale: 1, y: 0 },
+          { scale: 0.48, y: -8, duration: 0.78, ease: 'none' },
+          0,
+        )
+        .fromTo(
+          wave,
+          { yPercent: 100 },
+          {
+            yPercent: () => {
+              const waveHeight = wave.getBoundingClientRect().height
+              const solidTopOffset = waveHeight * 0.1
+              return ((waveHeight - transition.clientHeight - solidTopOffset) / waveHeight) * 100
+            },
+            duration: 1,
+            ease: 'none',
+          },
+          0,
+        )
+        .set(workOnWave, { visibility: 'visible' }, 0.68)
+        .fromTo(
+          workOnWave,
+          { y: 160, scale: 0.72 },
+          {
+            y: 0,
+            scale: 1,
+            duration: 0.32,
+            ease: 'none',
+            transformOrigin: '50% 50%',
+          },
+          0.68,
+        )
+
+      gsap.set(cards, {
+        x: (index) => stackOffsets[index].x,
+        y: (index) => stackOffsets[index].y,
+        rotation: (index) => (index - 1) * 5,
+        scale: 0.92,
+      })
+
+      gsap.to(cards, {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top bottom',
+          end: 'top 38%',
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+        },
+      })
+
+      ScrollTrigger.refresh()
+    }, container)
+
+    return () => context.revert()
+  }, [])
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#FFFAF6]">
       <Nav />
@@ -132,175 +241,153 @@ export default function About() {
                 </h2>
                 <ul className="about-education-list font-poppins">
                   <li>
-                    Bachelor’s of Design - <strong>Communication Design</strong>,
+                    Bachelor’s of Design – <strong>Communication Design</strong>,
                     <br />
                     Symbiosis Institute of Design
                     <br />
                     2023 – 2027.
-                  </li>
-                  <li>
-                    Higher Secondary Education
-                    <br />
-                    St. Paul's College
-                    <br />
-                    2021-2023
                   </li>
                 </ul>
               </section>
             </div>
           </div>
         </div>
-        <section className="about-languages-skills" aria-label="Languages and skills">
-          <div className="about-languages" aria-labelledby="languages-heading">
-            <h2 id="languages-heading" className="font-bowlby">
-              Language
-            </h2>
-            <ul className="about-language-list font-poppins">
-              <li>
-                <span>English</span>
-                <div
-                  className="about-language-meter"
-                  role="meter"
-                  aria-label="English proficiency"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  aria-valuenow="94"
-                >
-                  <span style={{ width: '94%' }} />
+        <section
+          ref={skillTransitionRef}
+          className="about-skill-transition"
+          aria-label="Design skills"
+        >
+          <div ref={skillCardsZoomRef} className="about-skill-cards-zoom">
+            <section ref={skillCardsRef} className="about-skill-cards">
+              {[
+                {
+                  src: '/images/skills-card-research.png',
+                  alt: 'Skills: User Research, Wireframing, Prototyping, and Information Architecture',
+                },
+                {
+                  src: '/images/skills-card-design.png',
+                  alt: 'Skills: Interaction Design, UX Research, Usability Testing, and User Journey Mapping',
+                },
+                {
+                  src: '/images/skills-card-practice.png',
+                  alt: 'Skills: Accessibility Design, Ideation, Visual Design, and Design Systems',
+                },
+              ].map(({ src, alt }) => (
+                <div className="about-skill-card" key={src}>
+                  <div className="about-skill-card-art">
+                    <img className="about-skill-card-image" src={src} alt={alt} />
+                    {Array.from({ length: 4 }, (_, index) => (
+                      <svg
+                        className="about-skill-card-check"
+                        key={index}
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <path d="m4 12.5 5.2 5.2L20 6.8" />
+                      </svg>
+                    ))}
+                  </div>
                 </div>
-              </li>
-              <li>
-                <span>Hindi</span>
-                <div
-                  className="about-language-meter"
-                  role="meter"
-                  aria-label="Hindi proficiency"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  aria-valuenow="75"
-                >
-                  <span style={{ width: '75%' }} />
-                </div>
-              </li>
-              <li>
-                <span>Marathi</span>
-                <div
-                  className="about-language-meter"
-                  role="meter"
-                  aria-label="Marathi proficiency"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  aria-valuenow="75"
-                >
-                  <span style={{ width: '75%' }} />
-                </div>
-              </li>
-            </ul>
-            <section className="about-contact" aria-labelledby="about-contact-heading">
-              <h2 id="about-contact-heading" className="font-bowlby">
-                Contact
-              </h2>
-              <div className="about-contact-links font-poppins">
-                <div className="about-contact-column">
-                  <a href="mailto:arnavibhagat@gmail.com">
-                    <img src={mailIcon} alt="" />
-                    <span>arnavibhagat@gmail.com</span>
-                  </a>
-                  <a href="tel:+918806567626">
-                    <img src={contactIcon} alt="" />
-                    <span>8806567626</span>
-                  </a>
-                </div>
-                <div className="about-contact-column">
-                  <a href="https://www.behance.net/" target="_blank" rel="noreferrer">
-                    <img src={behanceIcon} alt="" />
-                    <span>Behance</span>
-                  </a>
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
-                    <img src={linkedinIcon} alt="" />
-                    <span>LinkedIn</span>
-                  </a>
-                </div>
-              </div>
+              ))}
             </section>
           </div>
-          <section className="about-skills" aria-labelledby="skills-heading">
-            <h2 id="skills-heading" className="font-bubbler">
-              Skills
-            </h2>
-            <ul className="about-skills-list font-poppins">
-              <li>User Research</li>
-              <li>Wireframing</li>
-              <li>Prototyping</li>
-              <li>Information Architecture</li>
-              <li>Interaction Design</li>
-              <li>UX Thinking</li>
-              <li>Usability Testing</li>
-              <li>User Journey Mapping</li>
-              <li>Accessibility Design</li>
-              <li>Ideation</li>
-              <li>Visual Design</li>
-              <li>Design Systems</li>
-            </ul>
+          <div ref={skillWaveRef} className="about-skill-wave" aria-hidden="true">
+            <img src="/images/brown-wave.png" alt="" width="768" height="1244" />
+          </div>
+          <section
+            ref={workOnWaveRef}
+            className="about-work about-wave-work"
+            aria-labelledby="work-heading"
+          >
+            <div className="about-work-copy">
+              <h2 id="work-heading" className="font-bowlby">
+                Work Experience
+              </h2>
+              <div className="about-work-timeline">
+                <article className="about-work-entry">
+                  <div className="about-work-entry-heading font-poppins">
+                    <h3>UI/UX Designer — Tars Digital</h3>
+                    <span>2 Months</span>
+                  </div>
+                  <ul className="about-work-entry-details font-poppins">
+                    <li>
+                      Researched brand identity and developed brand guidelines for visual
+                      consistency.
+                    </li>
+                    <li>Designed user onboarding screens to improve clarity and ease of use.</li>
+                    <li>
+                      Analysed existing products and documented areas for improvement through
+                      comparative analysis.
+                    </li>
+                    <li>
+                      Developed information architecture for a new product to structure content and
+                      support intuitive navigation.
+                    </li>
+                  </ul>
+                </article>
+                <article className="about-work-entry">
+                  <div className="about-work-entry-heading font-poppins">
+                    <h3>Graphic Designer — Asmi.mindcare</h3>
+                    <span>1 Month</span>
+                  </div>
+                  <ul className="about-work-entry-details font-poppins">
+                    <li>
+                      Led design tasks as part of the core design team, contributing to the brand’s
+                      visual identity.
+                    </li>
+                    <li>
+                      Designed the logo, visual identity, and business cards to establish a
+                      consistent brand presence.
+                    </li>
+                    <li>Created brochure designs aligned with the brand’s communication goals.</li>
+                    <li>
+                      Developed website wireframes to structure content and plan the user
+                      experience.
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+            <div className="about-work-art">
+              <img
+                src="/images/work-experience-receipt-taped.png"
+                alt="Work experience receipt with plaid tape at the top-left and beige tape at the bottom-right"
+                className="about-work-receipt"
+              />
+            </div>
           </section>
         </section>
-        <section className="about-work" aria-labelledby="work-heading">
-          <div className="about-work-copy">
-            <h2 id="work-heading" className="font-bowlby">
-              Work Experience
-            </h2>
-            <div className="about-work-timeline">
-              <article className="about-work-entry">
-                <div className="about-work-entry-heading font-poppins">
-                  <h3>UI/UX Designer — Tars Digital</h3>
-                  <span>2 Months</span>
-                </div>
-                <ul className="about-work-entry-details font-poppins">
-                  <li>
-                    Researched brand identity and developed brand guidelines for visual consistency.
-                  </li>
-                  <li>Designed user onboarding screens to improve clarity and ease of use.</li>
-                  <li>
-                    Analysed existing products and documented areas for improvement through
-                    comparative analysis.
-                  </li>
-                  <li>
-                    Developed information architecture for a new product to structure content and
-                    support intuitive navigation.
-                  </li>
-                </ul>
-              </article>
-              <article className="about-work-entry">
-                <div className="about-work-entry-heading font-poppins">
-                  <h3>Graphic Designer — Asmi.mindcare</h3>
-                  <span>1 Month</span>
-                </div>
-                <ul className="about-work-entry-details font-poppins">
-                  <li>
-                    Led design tasks as part of the core design team, contributing to the brand’s
-                    visual identity.
-                  </li>
-                  <li>
-                    Designed the logo, visual identity, and business cards to establish a consistent
-                    brand presence.
-                  </li>
-                  <li>Created brochure designs aligned with the brand’s communication goals.</li>
-                  <li>
-                    Developed website wireframes to structure content and plan the user experience.
-                  </li>
-                </ul>
-              </article>
-            </div>
-          </div>
-          <div className="about-work-art">
-            <img
-              src="/images/work-experience-receipt-taped.png"
-              alt="Work experience receipt with plaid tape at the top-left and beige tape at the bottom-right"
-              className="about-work-receipt"
-            />
-          </div>
-        </section>
       </main>
+      <footer className="about-connect-footer" aria-label="Connect">
+        <h2 className="about-connect-title">
+          <span className="font-bowlby">Let’s</span>
+          <span className="font-bubbler">connect!</span>
+        </h2>
+        <nav className="about-connect-links" aria-label="Contact links">
+          <a href="mailto:arnavibhagat@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25z" />
+              <path d="m4 6 8 6 8-6" />
+            </svg>
+            <span>arnavibhagat@gmail.com</span>
+          </a>
+          <a href="https://www.behance.net/" target="_blank" rel="noreferrer">
+            <span className="about-connect-brand" aria-hidden="true">Bē</span>
+            <span>Behance</span>
+          </a>
+          <a href="tel:+918806567626">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.2 3.5h2.3l1.2 4.2-1.8 1.8a15 15 0 0 0 5.6 5.6l1.8-1.8 4.2 1.2v2.3a2.2 2.2 0 0 1-2.4 2.2A16.6 16.6 0 0 1 5 5.9 2.2 2.2 0 0 1 7.2 3.5Z" />
+            </svg>
+            <span>8806567626</span>
+          </a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+            <span className="about-connect-brand about-connect-linkedin" aria-hidden="true">in</span>
+            <span>LinkedIn</span>
+          </a>
+        </nav>
+      </footer>
     </div>
   )
 }
