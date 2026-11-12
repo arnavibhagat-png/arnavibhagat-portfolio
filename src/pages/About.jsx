@@ -372,7 +372,7 @@ export default function About() {
             </svg>
             <span>arnavibhagat@gmail.com</span>
           </a>
-          <a href="https://www.behance.net/" target="_blank" rel="noreferrer">
+          <a href="https://www.behance.net/arnavibhagat" target="_blank" rel="noopener noreferrer">
             <span className="about-connect-brand" aria-hidden="true">Bē</span>
             <span>Behance</span>
           </a>
@@ -382,7 +382,11 @@ export default function About() {
             </svg>
             <span>8806567626</span>
           </a>
-          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+          <a
+            href="https://www.linkedin.com/in/arnavi-bhagat-1a4497275"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span className="about-connect-brand about-connect-linkedin" aria-hidden="true">in</span>
             <span>LinkedIn</span>
           </a>

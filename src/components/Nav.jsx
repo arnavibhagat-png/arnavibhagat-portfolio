@@ -18,14 +18,9 @@ export default function Nav() {
         {/* Brand: Avatar + Bold Name in Bowlby One */}
         <NavLink
           to="/"
-          className="navbar-brand flex items-center gap-2.5 sm:gap-3 group no-underline pl-0.5 sm:pl-1 select-none"
+          className="navbar-brand flex items-center no-underline pl-0.5 sm:pl-1 select-none"
           aria-label="Arnavi - Home"
         >
-          <img
-            src="/images/nav-avatar.png"
-            alt="Arnavi avatar"
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover shrink-0 select-none transition-transform duration-200 group-hover:scale-105 shadow-sm"
-          />
           <span className="font-bowlby text-xl sm:text-2xl tracking-wide leading-none select-none">
             Arnavi
           </span>

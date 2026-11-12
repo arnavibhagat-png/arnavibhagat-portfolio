@@ -4,13 +4,88 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Nav from '../components/Nav'
 import PinboardLink from '../components/PinboardLink'
-import ProjectGrid from '../components/ProjectGrid'
 import curaNavMockup from '../../CuraNav.png'
 import agrovisionMockup from '../../agrovision.png'
 import dementiaMockup from '../../Dementia research.png'
 import valaceMockup from '../../Valace.png'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const projects = [
+  {
+    title: 'CuraNav',
+    category: 'Visual Identity + App Design',
+    description:
+      'A healthcare navigation platform designed to simplify access to medical services through intuitive interfaces and seamless user flows.',
+    caseStudyUrl: 'https://www.behance.net/gallery/251901053/CuraNav?platform=direct',
+    image: curaNavMockup,
+    alt: 'CuraNav mobile health app mockup',
+  },
+  {
+    title: 'AgroVision',
+    category: 'Dashboard Design + Group Project',
+    description:
+      'A collaborative dashboard designed to help agricultural officers monitor progress, track activities, and manage agricultural development through organised data and clear visual insights.',
+    caseStudyUrl: 'https://www.behance.net/gallery/251896171/AgroVision',
+    image: agrovisionMockup,
+    alt: 'AgroVision crop monitoring dashboard mockup',
+  },
+  {
+    title: 'Dementia Research',
+    category: 'UX Research + Product Design',
+    description:
+      'Exploring research-driven design solutions that support memory care through accessibility, cognitive clarity, and everyday assistance.',
+    caseStudyUrl: 'https://www.behance.net/gallery/258409297/Memory-aid',
+    image: dementiaMockup,
+    alt: 'Dementia care device mockup',
+  },
+  {
+    title: 'Postpartum Care',
+    category: 'Product Design + UX Research',
+    description:
+      'An empathetic postpartum care experience designed to support new mothers through personalised tracking, accessible guidance, and everyday support.',
+    caseStudyUrl: 'https://www.behance.net/gallery/251897507/Valace',
+    image: valaceMockup,
+    alt: 'Postpartum care mobile app mockup',
+  },
+]
+
+function ProjectImage({ project }) {
+  return (
+    <article
+      className="home-project-card"
+      tabIndex={0}
+      aria-label={`${project.title}. ${project.category}. ${project.description}`}
+    >
+      <img src={project.image} alt={project.alt} />
+      <div className="home-project-overlay">
+        <div className="home-project-copy">
+          <h2>{project.title}</h2>
+          <p className="home-project-category">{project.category}</p>
+          <p className="home-project-description">{project.description}</p>
+        </div>
+        <a
+          className="home-project-cta"
+          href={project.caseStudyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View ${project.title} case study on Behance`}
+        >
+          View Case Study
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M14 4h6v6M20 4l-9 9" />
+            <path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" />
+          </svg>
+        </a>
+      </div>
+    </article>
+  )
+}
 
 export default function Home() {
   const location = useLocation()
@@ -104,6 +179,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#310C02] text-[#22201d] font-inter">
+      <Nav />
       <section
         ref={transitionRef}
         className="relative isolate h-[100svh] min-h-[480px] w-full overflow-hidden"
@@ -117,8 +193,6 @@ export default function Home() {
           />
           <div className="absolute inset-x-0 bottom-[-48%] z-10 h-[95vh] bg-gradient-to-b from-transparent via-[#f5e7e2]/25 to-[#FFFAF6]" />
         </div>
-
-        <Nav />
 
         <div className="absolute inset-0 z-20 flex items-center justify-center px-1 sm:px-3">
           <div
@@ -197,29 +271,36 @@ export default function Home() {
       </section>
 
       <main>
-        <section className="home-mockups" aria-label="Selected project mockups">
+        <section
+          id="projects"
+          className="home-mockups"
+          aria-label="Projects and research"
+        >
           <div className="home-mockups-row home-mockups-row-top">
-            <img src={curaNavMockup} alt="CuraNav mobile health app mockup" />
-            <img src={agrovisionMockup} alt="Agrovision crop monitoring dashboard mockup" />
+            <ProjectImage project={projects[0]} />
+            <ProjectImage project={projects[1]} />
           </div>
           <div className="home-mockups-row home-mockups-row-bottom">
-            <img src={dementiaMockup} alt="Dementia care device mockup" />
-            <img src={valaceMockup} alt="Valace postpartum care app mockup" />
+            <ProjectImage project={projects[2]} />
+            <ProjectImage project={projects[3]} />
           </div>
-        </section>
-        <section id="projects" className="home-projects" aria-labelledby="projects-heading">
-          <div className="home-projects-heading">
-            <span className="font-poppins">From the To-Do List</span>
-            <h2 id="projects-heading" className="font-bowlby">
-              Projects &amp; Research
-            </h2>
-          </div>
-          <ProjectGrid />
         </section>
       </main>
 
-      <footer className="w-full border-t border-white/15 bg-[#310C02] px-4 py-6 text-center text-xs text-white/75">
-        Arnavi Bhagat • UX &amp; Visual Designer Portfolio • Nagpur, India
+      <footer className="w-full border-t border-white/15 bg-[#310C02] px-4 py-6 text-xs text-white/75 font-poppins flex flex-col items-center gap-3">
+        <span>Arnavi Bhagat • UX &amp; Visual Designer Portfolio • Nagpur, India</span>
+        <nav className="site-footer-links" aria-label="Social profiles">
+          <a href="https://www.behance.net/arnavibhagat" target="_blank" rel="noopener noreferrer">
+            Behance
+          </a>
+          <a
+            href="https://www.linkedin.com/in/arnavi-bhagat-1a4497275"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </nav>
       </footer>
     </div>
   )
